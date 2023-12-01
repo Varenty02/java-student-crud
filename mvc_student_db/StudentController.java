@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package mvc_student_db;
+
 import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,29 +44,30 @@ public class StudentController {
         frm.addSortNameStudentListener(new SortStudentByNameListener());
         frm.setVisible(true);
     }
-public void updateArray() throws SQLException{
-    String sql="select * from student";
-    PreparedStatement ps = con.prepareStatement(sql);
-    ResultSet resultset=ps.executeQuery();
-    arr.clear();
-    while(resultset.next()){
-        int id=resultset.getInt("id");
-        String name=resultset.getString("name");
-        int age=resultset.getInt("age");
-        String address=resultset.getString("address");
-        Float gpa=resultset.getFloat("gpa");
-        arr.add(new Student(id,name,age,address,gpa));
+
+    public void updateArray() throws SQLException {
+        String sql = "select * from student";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet resultset = ps.executeQuery();
+        arr.clear();
+        while (resultset.next()) {
+            int id = resultset.getInt("id");
+            String name = resultset.getString("name");
+            int age = resultset.getInt("age");
+            String address = resultset.getString("address");
+            Float gpa = resultset.getFloat("gpa");
+            arr.add(new Student(id, name, age, address, gpa));
+        }
     }
-}
+
     public void createStudent(Student st) {
-        String sql = "INSERT INTO student(id, name, age,address,  gpa) VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO student( name, age,address,  gpa) VALUES(?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, st.getId());
-            ps.setString(2, st.getName());
-            ps.setInt(3, st.getAge());
-            ps.setString(4, st.getAddress());
-            ps.setFloat(5, st.getGpa());
+            ps.setString(1, st.getName());
+            ps.setInt(2, st.getAge());
+            ps.setString(3, st.getAddress());
+            ps.setFloat(4, st.getGpa());
             ps.executeUpdate();
 
         } catch (Exception e) {
@@ -89,7 +91,7 @@ public void updateArray() throws SQLException{
     }
 
     public void deleteStudent(Student st) {
-        String sql="delete from student where id=?";
+        String sql = "delete from student where id=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, st.getId());
@@ -116,10 +118,10 @@ public void updateArray() throws SQLException{
     }
 
     public void editStudent(Student st) {
-        String sql="update student set name=?,age=?,address=?,gpa=? where id=?";
+        String sql = "update student set name=?,age=?,address=?,gpa=? where id=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            
+
             ps.setString(1, st.getName());
             ps.setInt(2, st.getAge());
             ps.setString(3, st.getAddress());
@@ -148,8 +150,19 @@ public void updateArray() throws SQLException{
     }
 
     public void sortStudentByName() {
+        String sql = "select * from student order by name";
         try {
-
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet resultset = ps.executeQuery();
+            arr.clear();
+            while (resultset.next()) {
+                int id = resultset.getInt("id");
+                String name = resultset.getString("name");
+                int age = resultset.getInt("age");
+                String address = resultset.getString("address");
+                Float gpa = resultset.getFloat("gpa");
+                arr.add(new Student(id, name, age, address, gpa));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -160,7 +173,7 @@ public void updateArray() throws SQLException{
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-
+                sortStudentByName();
                 frm.updateTable();
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -169,7 +182,19 @@ public void updateArray() throws SQLException{
     }
 
     public void sortStudentByGPA() {
+        String sql = "select * from student order by gpa";
         try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet resultset = ps.executeQuery();
+            arr.clear();
+            while (resultset.next()) {
+                int id = resultset.getInt("id");
+                String name = resultset.getString("name");
+                int age = resultset.getInt("age");
+                String address = resultset.getString("address");
+                Float gpa = resultset.getFloat("gpa");
+                arr.add(new Student(id, name, age, address, gpa));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

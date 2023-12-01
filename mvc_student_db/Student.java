@@ -9,15 +9,12 @@ package mvc_student_db;
  * @author hieud
  */
 public class Student implements Comparable<helloworld.Student>{
-    private static int nextId = 1;
-
     public int id;
     public String name;
     public int  age;
     public String address;
     public Float gpa;
     public Student() {
-        this.id = nextId++;
     }
     public Student(int id,String name, int age, String address, Float gpa) {
         this.id = id;
