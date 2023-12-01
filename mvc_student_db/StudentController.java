@@ -37,6 +37,13 @@ public class StudentController {
 
         arr = new ArrayList<Student>();
         frm = new StudentView(arr);
+        
+        try {
+            updateArray();
+            frm.updateTable();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         frm.addCreateStudentListener(new CreateStudentListener());
         frm.addDeleteStudentListener(new DeleteStudentListener());
         frm.addEditStudentListener(new EditStudentListener());
